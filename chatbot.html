@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>React Basics</title>
+    <title>Chatbot.AI</title>
   </head>
   <body>
     <div class="js-container"></div>
@@ -12,14 +12,87 @@
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
     <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
     <script type="text/babel">
+
+      function Chatinput() {
+        return (
+          <>
+            <h1>Chatbot.AI</h1>
+            <input type="text" placeholder="Type your Prompt..." size="50" />
+            <button>Send</button>
+            </>
+        )
+      }
+
+      function Chatmessage(props) {
+        // const message = props.message;
+        // const image = props.image;
+        const {message, image} = props;
+
+        if (image === "robot") {
+          return (
+            <div>
+              <img src="robot.png" height="30" />
+              {message}
+            </div>
+          )
+        }
+
+        return (
+          <div>
+            {message}
+            <img src="user.png" height="30" />
+          </div>
+        )
+      }
+
+      function ChatMessages(){
+        const chatMessages = [
+          {message: "Hello, how are you?",
+           image: "user"
+          },
+          {message: "Hello! I am great you?",
+           image: "robot"
+          },
+          {message: "I'm great too, Can you get me todays date?"
+          , image: "user"
+        },
+          {message: "Today is January 20", 
+          image: "robot"} ,
+        ];
+
+        function sendMessage() {
+          alert("Message sent!");
+        }
+
+        return (
+          <>
+            <button onClick={sendMessage}>Send message</button>
+            {chatMessages.map((chatMessages) => {
+              return(
+                <Chatmessage
+                  message={chatMessages.message}
+                  image={chatMessages.image} 
+                />
+              )
+            })}
+          </>
+        )
+      }
+
+      function App(){
+        return(
+           <>
+              <Chatinput />
+              <ChatMessages />
+            </>
+          )
+      }
+       
       const container = document.querySelector('.js-container');
-      const root =  ReactDOM.createRoot(container);
-      setInterval(()=>{root.render(
-        <div>
-          <p>Today is {dayjs().format('HH : mm : ss')}</p>
-        </div>
-      )}, 1000);
-      // root.render(clock);
+      const root =  ReactDOM.createRoot(container)
+      
+      root.render(<App />);
+      
     </script> 
   </body>
 </html>
